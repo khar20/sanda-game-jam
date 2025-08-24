@@ -7,19 +7,7 @@ extends StaticBody2D
 #@onready var gravity_field: Area2D = preload("res://GravityField.tscn").instantiate()
 
 func _ready():
-	# Optional: Add a Sprite to represent the planet
-	if sprite_texture:
-		var sprite = Sprite2D.new()
-		sprite.texture = sprite_texture
-		sprite.centered = true
-		add_child(sprite)
-	# If using collision:
-	if not has_node("CollisionShape2D"):
-		var shape = CollisionShape2D.new()
-		var circle = CircleShape2D.new()
-		circle.radius = radius
-		shape.shape = circle
-		add_child(shape)
+	position = Vector2(randf_range(-200, 200), randf_range(-200, 200))
 		
 #	add_child(gravity_field)
 #	gravity_field.position = Vector2.ZERO
