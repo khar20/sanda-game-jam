@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://n38pr2pxqytw"]
+
+[ext_resource type="Script" uid="uid://oj27omvtsyst" path="res://exploration_scene/exploration_scene.gd" id="1_b6kip"]
+[ext_resource type="Script" uid="uid://bdq2pacbljdfi" path="res://exploration_scene/player_ship.gd" id="1_vrkq3"]
+[ext_resource type="PackedScene" uid="uid://bx310m181ulka" path="res://planets.tscn" id="1_yno01"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_m0mie"]
+
+[node name="ExplorationScene" type="Node2D"]
+script = ExtResource("1_b6kip")
+
+[node name="PlayerShip" type="RigidBody2D" parent="."]
+gravity_scale = 0.0
+script = ExtResource("1_vrkq3")
+
+[node name="Sprite2D" type="Sprite2D" parent="PlayerShip"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerShip"]
+shape = SubResource("CapsuleShape2D_m0mie")
+
+[node name="Camera2D" type="Camera2D" parent="PlayerShip"]
+
+[node name="Planets" parent="." instance=ExtResource("1_yno01")]
+position = Vector2(152, 96)
+
+[node name="Planets2" parent="." instance=ExtResource("1_yno01")]
+position = Vector2(152, 96)
+
+[node name="Planets3" parent="." instance=ExtResource("1_yno01")]
+position = Vector2(152, 96)
+
+[node name="Planets4" parent="." instance=ExtResource("1_yno01")]
+position = Vector2(152, 96)

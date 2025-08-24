@@ -11,6 +11,5 @@ config_version=5
 [application]
 
 config/name="SANDA GAME JAM"
-run/main_scene="uid://brditnskvkp15"
+run/main_scene="uid://n38pr2pxqytw"
 config/features=PackedStringArray("4.4", "Forward Plus")
-config/icon="res://icon.svg"
