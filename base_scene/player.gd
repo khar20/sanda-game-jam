@@ -1,37 +1,30 @@
 extends CharacterBody2D
 
-@export var gravity_strength: float = 400.0
-@export var move_speed: float = 150.0
-@export var jump_speed: float = 300.0
+@export var speed: float = 60.0
+@export var gravity_strength: float = 100.0
+@export var center: Vector2
 
-@onready var ship: Node2D = $"../SpaceStation"
+func _ready() -> void:
+	floor_max_angle = 10
+	
 
-func _physics_process(delta: float) -> void:
-	# "Down" points toward the ship's hull based on its rotation
-	var down: Vector2 = Vector2.DOWN.rotated(ship.rotation).normalized()
-	var tangent: Vector2 = down.orthogonal().normalized()  # direction to walk along the ring
-
-	# Decompose current velocity into local (tangent/perp) components
-	var v_tan: float = velocity.dot(tangent)
-	var v_perp: float = velocity.dot(down)
-
-	# Apply gravity along "down"
-	v_perp += gravity_strength * delta
-
-	# Input along the tangent (A/D or ←/→)
-	var input_axis := Input.get_axis("ui_left", "ui_right")
-	if abs(input_axis) > 0.01:
-		v_tan = input_axis * move_speed
+func _physics_process(delta):
+	var raw_to_center = center - global_position
+	var to_center: Vector2
+	if raw_to_center.length_squared() > 0.000001:
+		to_center = raw_to_center.normalized()
 	else:
-		v_tan = lerp(v_tan, 0.0, 0.1)
+		to_center = Vector2(0, -1)
 
-	# Jump opposite to "down" when grounded
-	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
-		v_perp = -jump_speed
+	velocity += to_center * -gravity_strength * delta
 
-	# Recompose into global velocity and tell Godot what "up" is
-	velocity = tangent * v_tan + down * v_perp
-	up_direction = -down
+	if is_on_floor():
+		var normal = get_floor_normal()
+		var tangent = Vector2(-normal.y, normal.x)
+		var direction_input = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
+		velocity += tangent * direction_input * speed * delta
 
-	# Godot 4: no args; uses velocity/up_direction/motion_mode
+		rotation = normal.angle() + deg_to_rad(90)
+
+	up_direction = to_center
 	move_and_slide()
