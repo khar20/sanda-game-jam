@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://bx310m181ulka"]
+[gd_scene load_steps=5 format=3 uid="uid://bx310m181ulka"]
 
 [ext_resource type="Script" uid="uid://b5rmksffjrjq0" path="res://planets/planets.gd" id="1_dknfl"]
+[ext_resource type="Script" uid="uid://bh1kxrh6x5tjv" path="res://exploration_scene/gravity_area.gd" id="2_tfq48"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_da61m"]
 
@@ -15,7 +16,12 @@ script = ExtResource("1_dknfl")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_da61m")
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="GravityArea" type="Area2D" parent="."]
+script = ExtResource("2_tfq48")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GravityArea"]
 shape = SubResource("CircleShape2D_dknfl")
+debug_color = Color(0.933333, 0, 0.65098, 0.176471)
+
+[connection signal="body_entered" from="GravityArea" to="GravityArea" method="_on_body_entered"]
+[connection signal="body_exited" from="GravityArea" to="GravityArea" method="_on_body_exited"]

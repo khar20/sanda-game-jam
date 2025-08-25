@@ -19,15 +19,14 @@ script = ExtResource("1_vrkq3")
 shape = SubResource("CapsuleShape2D_m0mie")
 
 [node name="Camera2D" type="Camera2D" parent="PlayerShip"]
+ignore_rotation = false
+rotation_smoothing_enabled = true
+rotation_smoothing_speed = 2.0
 
 [node name="Planets" parent="." instance=ExtResource("1_yno01")]
-position = Vector2(152, 96)
 
 [node name="Planets2" parent="." instance=ExtResource("1_yno01")]
-position = Vector2(152, 96)
 
 [node name="Planets3" parent="." instance=ExtResource("1_yno01")]
-position = Vector2(152, 96)
 
 [node name="Planets4" parent="." instance=ExtResource("1_yno01")]
-position = Vector2(152, 96)

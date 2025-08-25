@@ -1,7 +1,5 @@
 extends AnimatableBody2D
 
-@export var rotation_speed := 0.5  # radians per second
-
-#func _process(delta):
-#	rotation += rotation_speed * delta
-#
+func _on_button_pressed() -> void:
+	print("Button pressed!")
+	get_tree().change_scene_to_file("res://exploration_scene.tscn")	
